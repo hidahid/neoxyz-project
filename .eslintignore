@@ -1,4 +1,4 @@
 vite-env.d.ts
-/node_modules
-/src/App.tsx
-*.tsx
+# /node_modules
+# /src/App.tsx
+# *.tsx
