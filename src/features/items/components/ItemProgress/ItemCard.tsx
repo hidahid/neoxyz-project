@@ -1,5 +1,6 @@
 import React from 'react'
 import type { Item, CSSProperties } from '../../../../types'
+import { ITEM_PROGRESS_ID } from '../../../../constants/app'
 
 interface ItemCardProps {
   item: Item
@@ -7,7 +8,7 @@ interface ItemCardProps {
 
 const getArrowPositionStyle = (progressOrder: number): React.CSSProperties => {
   const justifyContentValue: 'flex-end' | 'space-between' =
-    progressOrder === 1 ? 'flex-end' : 'space-between'
+    progressOrder === ITEM_PROGRESS_ID.NOT_STARTED ? 'flex-end' : 'space-between'
   return {
     display: 'flex',
     justifyContent: justifyContentValue,
@@ -31,8 +32,12 @@ const ItemCard = ({ item }: ItemCardProps): JSX.Element => {
         <p>Due on {item.dueDate}</p>
       </div>
       <div style={getArrowPositionStyle(item.progressOrder)}>
-        {item.progressOrder !== 1 && <button className="material-icons">chevron_left</button>}
-        {item.progressOrder !== 4 && <button className="material-icons">chevron_right</button>}
+        {item.progressOrder !== ITEM_PROGRESS_ID.NOT_STARTED && (
+          <button className="material-icons">chevron_left</button>
+        )}
+        {item.progressOrder !== ITEM_PROGRESS_ID.COMPLETED && (
+          <button className="material-icons">chevron_right</button>
+        )}
       </div>
     </div>
   )

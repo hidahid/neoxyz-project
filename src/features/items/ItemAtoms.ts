@@ -1,8 +1,9 @@
 import { atom } from 'recoil'
 import type { Item } from '../../types'
+import { AtomKeys } from '../../constants/recoilKeys'
 
 export const itemsState = atom<Item[]>({
-    key: 'items',
+    key: AtomKeys.ITEMS,
     default: [
         {
             id: 1,

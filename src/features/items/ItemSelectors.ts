@@ -1,9 +1,10 @@
 import { selector } from 'recoil'
 import { itemsState } from './ItemAtoms'
 import type { Item } from '../../types'
+import { SelectorKeys } from '../../constants/recoilKeys'
 
 export const uncompletedItemsSelector = selector<Item[]>({
-    key: 'uncompleted_items',
+    key: SelectorKeys.UNCOMPLETED_ITEMS,
     get: ({ get }) => {
         return get(itemsState).filter((item) => {
             return item.progressOrder !== 4
@@ -12,7 +13,7 @@ export const uncompletedItemsSelector = selector<Item[]>({
 })
 
 export const notStartedItemsSelector = selector<Item[]>({
-    key: 'notStarted_items',
+    key: SelectorKeys.NOT_STARTED_ITEMS,
     get: ({ get }) => {
         return get(itemsState).filter((item) => {
             return item.progressOrder === 1
@@ -21,7 +22,7 @@ export const notStartedItemsSelector = selector<Item[]>({
 })
 
 export const inProgressItemsSelector = selector<Item[]>({
-    key: 'inProgress_items',
+    key: SelectorKeys.IN_PROGRESS_ITEMS,
     get: ({ get }) => {
         return get(itemsState).filter((item) => {
             return item.progressOrder === 2
@@ -30,7 +31,7 @@ export const inProgressItemsSelector = selector<Item[]>({
 })
 
 export const waitingItemsSelector = selector<Item[]>({
-    key: 'waiting_items',
+    key: SelectorKeys.WAITING_ITEMS,
     get: ({ get }) => {
         return get(itemsState).filter((item) => {
             return item.progressOrder === 3
@@ -39,7 +40,7 @@ export const waitingItemsSelector = selector<Item[]>({
 })
 
 export const completedItemsSelector = selector<Item[]>({
-    key: 'completed_items',
+    key: SelectorKeys.COMPLETED_ITEMS,
     get: ({ get }) => {
         return get(itemsState).filter((item) => {
             return item.progressOrder === 4
