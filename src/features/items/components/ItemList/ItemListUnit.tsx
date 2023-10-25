@@ -1,5 +1,6 @@
 // import React from 'react'
 import type { Item, CSSProperties } from '../../../../types'
+import { ITEM_PROGRESS_STATUS, ITEM_PROGRESS_ID } from '../../../../constants/app'
 
 interface ItemListItemProps {
   item: Item
@@ -7,16 +8,16 @@ interface ItemListItemProps {
 
 const getProgressCategory = (progressOrder: number): string => {
   switch (progressOrder) {
-    case 1:
-      return 'Not Started'
-    case 2:
-      return 'In Progress'
-    case 3:
-      return 'Waiting/In Review'
-    case 4:
-      return 'Completed'
+    case ITEM_PROGRESS_ID.NOT_STARTED:
+      return ITEM_PROGRESS_STATUS.NOT_STARTED
+    case ITEM_PROGRESS_ID.IN_PROGRESS:
+      return ITEM_PROGRESS_STATUS.IN_PROGRESS
+    case ITEM_PROGRESS_ID.WAITING:
+      return ITEM_PROGRESS_STATUS.WAITING
+    case ITEM_PROGRESS_ID.COMPLETED:
+      return ITEM_PROGRESS_STATUS.COMPLETED
     default:
-      return 'Not Started'
+      return ITEM_PROGRESS_STATUS.NOT_STARTED
   }
 }
 
