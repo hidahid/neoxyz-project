@@ -3,7 +3,8 @@ import { RecoilRoot } from 'recoil' // RECOIL
 import { createBrowserRouter, RouterProvider } from 'react-router-dom' // ROUTER
 import SideMenuLayout from './layouts/SideMenuLayout' // NESTED ROUTING
 import ItemSummary from './features/items/components/ItemSummary' // LINK TO ITEM SUMMARY PAGE
-import SideMenu from './components/SideMenu'
+import ItemList from './features/items/components/ItemList/ItemList' // LINK TO ITEM LIST PAGE
+import ItemProgress from './features/items/components/ItemProgress/ItemProgress' // LINK TO ITEM PROGRESS PAGE
 
 const router = createBrowserRouter([
   {
@@ -20,11 +21,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/item-list',
-        element: <SideMenu />,
+        element: <ItemList />,
       },
       {
         path: '/item-progress',
-        element: <SideMenu />,
+        element: <ItemProgress />,
       },
     ],
   },
