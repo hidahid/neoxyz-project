@@ -52,7 +52,8 @@ const styles: CSSProperties = {
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: '40px',
-    width: '60%',
+    width: '100%',
+    gap: '10px',
   },
   links: {
     display: 'flex',
