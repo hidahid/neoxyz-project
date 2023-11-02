@@ -1,9 +1,25 @@
 import React from 'react'
 import type { Item, CSSProperties } from '../../../../types'
 import { ITEM_PROGRESS_ID } from '../../../../constants/app'
+import { useRecoilState } from 'recoil'
+import { itemsState } from '../../ItemAtoms'
 
 interface ItemCardProps {
   item: Item
+}
+
+const getIconStyle = (progressOrder: number): React.CSSProperties => {
+  const color: '#55C89F' | '#C5C5C5' =
+    progressOrder === ITEM_PROGRESS_ID.COMPLETED ? '#55C89F' : '#C5C5C5'
+
+  const cursor: 'default' | 'pointer' =
+    progressOrder === ITEM_PROGRESS_ID.COMPLETED ? 'default' : 'pointer'
+
+  return {
+    color,
+    cursor,
+    fontSize: '28px',
+  }
 }
 
 const getArrowPositionStyle = (progressOrder: number): React.CSSProperties => {
@@ -16,10 +32,27 @@ const getArrowPositionStyle = (progressOrder: number): React.CSSProperties => {
 }
 
 const ItemCard = ({ item }: ItemCardProps): JSX.Element => {
+  const [items, setItems] = useRecoilState<Item[]>(itemsState)
+
+  const completeItem = (itemId: number): void => {
+    const updatedItems: Item[] = items.map((item) =>
+      item.id === itemId ? { ...item, progressOrder: ITEM_PROGRESS_ID.COMPLETED } : item,
+    )
+    setItems(updatedItems)
+  }
+
   return (
     <div style={styles.itemCard}>
       <div style={styles.itemIcons}>
-        <div className="material-icons">check_circle</div>
+        <div
+          className="material-icons"
+          style={getIconStyle(item.progressOrder)}
+          onClick={(): void => {
+            completeItem(item.id)
+          }}
+        >
+          check_circle
+        </div>
         <div className="material-icons" style={styles.menuIcon}>
           more_vert
         </div>
