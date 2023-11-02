@@ -1,9 +1,26 @@
 // import React from 'react'
 import type { Item, CSSProperties } from '../../../../types'
 import { ITEM_PROGRESS_STATUS, ITEM_PROGRESS_ID } from '../../../../constants/app'
+import { useRecoilState } from 'recoil'
+import { itemsState } from '../../ItemAtoms'
 
 interface ItemListItemProps {
   item: Item
+}
+
+const getIconStyle = (progressOrder: number): React.CSSProperties => {
+  const color: '#55C89F' | '#C5C5C5' =
+    progressOrder === ITEM_PROGRESS_ID.COMPLETED ? '#55C89F' : '#C5C5C5'
+
+  const cursor: 'default' | 'pointer' =
+    progressOrder === ITEM_PROGRESS_ID.COMPLETED ? 'default' : 'pointer'
+
+  return {
+    color,
+    cursor,
+    fontSize: '28px',
+    marginRight: '6px',
+  }
 }
 
 const getProgressCategory = (progressOrder: number): string => {
@@ -22,10 +39,27 @@ const getProgressCategory = (progressOrder: number): string => {
 }
 
 const ItemListUnit = ({ item }: ItemListItemProps): JSX.Element => {
+  const [items, setItems] = useRecoilState<Item[]>(itemsState)
+
+  const completeItem = (itemId: number): void => {
+    const updatedItems: Item[] = items.map((item) =>
+      item.id === itemId ? { ...item, progressOrder: ITEM_PROGRESS_ID.COMPLETED } : item,
+    )
+    setItems(updatedItems)
+  }
+
   return (
     <div style={styles.tableBody}>
       <div style={styles.tableBodyItemTitle}>
-        <span className="material-icons">check_circle</span>
+        <span
+          className="material-icons"
+          style={getIconStyle(item.progressOrder)}
+          onClick={(): void => {
+            completeItem(item.id)
+          }}
+        >
+          check_circle
+        </span>
         {item.title}
       </div>
       <div style={styles.tableBodyDetail}>{item.detail}</div>
