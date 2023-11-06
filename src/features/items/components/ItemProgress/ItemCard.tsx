@@ -1,8 +1,7 @@
 import React from 'react'
 import type { Item, CSSProperties } from '../../../../types'
 import { ITEM_PROGRESS_ID } from '../../../../constants/app'
-import { useRecoilState } from 'recoil'
-import { itemsState } from '../../ItemAtoms'
+import { useItemsAction } from '../../hooks/Items'
 
 interface ItemCardProps {
   item: Item
@@ -32,14 +31,7 @@ const getArrowPositionStyle = (progressOrder: number): React.CSSProperties => {
 }
 
 const ItemCard = ({ item }: ItemCardProps): JSX.Element => {
-  const [items, setItems] = useRecoilState<Item[]>(itemsState)
-
-  const completeItem = (itemId: number): void => {
-    const updatedItems: Item[] = items.map((item) =>
-      item.id === itemId ? { ...item, progressOrder: ITEM_PROGRESS_ID.COMPLETED } : item,
-    )
-    setItems(updatedItems)
-  }
+  const { completeItem } = useItemsAction()
 
   return (
     <div style={styles.itemCard}>
