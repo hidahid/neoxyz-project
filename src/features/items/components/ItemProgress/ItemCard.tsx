@@ -31,7 +31,7 @@ const getArrowPositionStyle = (progressOrder: number): React.CSSProperties => {
 }
 
 const ItemCard = ({ item }: ItemCardProps): JSX.Element => {
-  const { completeItem } = useItemsAction()
+  const { completeItem, moveItemCard } = useItemsAction()
 
   return (
     <div style={styles.itemCard}>
@@ -58,10 +58,24 @@ const ItemCard = ({ item }: ItemCardProps): JSX.Element => {
       </div>
       <div style={getArrowPositionStyle(item.progressOrder)}>
         {item.progressOrder !== ITEM_PROGRESS_ID.NOT_STARTED && (
-          <button className="material-icons">chevron_left</button>
+          <button
+            className="material-icons"
+            onClick={(): void => {
+              moveItemCard(item.id, -1)
+            }}
+          >
+            chevron_left
+          </button>
         )}
         {item.progressOrder !== ITEM_PROGRESS_ID.COMPLETED && (
-          <button className="material-icons">chevron_right</button>
+          <button
+            className="material-icons"
+            onClick={(): void => {
+              moveItemCard(item.id, 1)
+            }}
+          >
+            chevron_right
+          </button>
         )}
       </div>
     </div>
